@@ -1,0 +1,27 @@
+[project]
+name = "sparkfun-rfid-reader"
+version = "1.2.0"
+description = "Python library for SparkFun UHF RFID Reader (ThingMagic M6E Nano and M7E Hecto)"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "pyserial>=3.5",
+]
+authors = [
+    { name = "SparkFun Electronics" },
+]
+license = { text = "MIT" }
+keywords = ["rfid", "uhf", "thingmagic", "m6e", "nano", "sparkfun", "gen2", "epc"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Hardware",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
