@@ -8,7 +8,7 @@ This library enables you to read and write UHF Gen2 RFID tags using Python, with
 
 ## Supported Hardware
 
-- [SparkFun Simultaneous RFID Reader - M7E Hecto](https://www.sparkfun.com/sparkfun-simultaneous-rfid-reader-m7e-hecto.html>)
+- [SparkFun Simultaneous RFID Reader - M7E Hecto](https://www.sparkfun.com/sparkfun-simultaneous-rfid-reader-m7e-hecto.html)
 
 ## Installation
 
