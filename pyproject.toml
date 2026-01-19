@@ -9,19 +9,6 @@ dependencies = [
 ]
 authors = [
     { name = "SparkFun Electronics" },
+    { name = "Sebastian Plamauer", email = "sebastian.plamauer@motius.de" },
 ]
-license = { text = "MIT" }
-keywords = ["rfid", "uhf", "thingmagic", "m6e", "nano", "sparkfun", "gen2", "epc"]
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: System :: Hardware",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-]
+license = "MIT"
