@@ -8,21 +8,55 @@ This is a Python port of the Arduino example.
 """
 
 import time
+import typer
 from sparkfun_rfid import RFID, ModuleType
 from sparkfun_rfid.constants import (
     RESPONSE_IS_KEEPALIVE,
     RESPONSE_IS_TAGFOUND,
     RESPONSE_IS_HIGHRETURNLOSS,
     ERROR_CORRUPT_RESPONSE,
-    REGION_NORTHAMERICA
+    REGION_OPEN,
+    REGION_EUROPE,
+    REGION_NORTHAMERICA,
 )
 
 
-def main():
+app = typer.Typer()
+
+
+@app.command()
+def main(
+    read_power: int = typer.Option(
+        27,
+        "--read-power",
+        "-p",
+        min=5,
+        max=27,
+        help="Read power in dBm (5-27)",
+    ),
+    region: str = typer.Option(
+        "open",
+        "--region",
+        "-r",
+        help="Region setting (open, eu, us)",
+    ),
+):
     # Configure your serial port here
-    SERIAL_PORT = '/dev/ttyUSB0'  # Change to 'COM3' on Windows, etc.
+    SERIAL_PORT = "/dev/ttyUSB0"  # Change to 'COM3' on Windows, etc.
     BAUDRATE = 115200
     MODULE_TYPE = ModuleType.M6E_NANO  # or ModuleType.M7E_HECTO
+
+    # Map region string to constant
+    region_map = {
+        "open": REGION_OPEN,
+        "eu": REGION_EUROPE,
+        "us": REGION_NORTHAMERICA,
+    }
+
+    region_constant = region_map.get(region.lower())
+    if region_constant is None:
+        print(f"Error: Invalid region '{region}'. Must be one of: open, eu, us")
+        raise typer.Exit(code=1)
 
     print("SparkFun RFID Reader - Constant Read Example")
     print("=" * 50)
@@ -37,9 +71,13 @@ def main():
 
         # Configure the reader
         print("Configuring module...")
-        rfid.set_region(REGION_NORTHAMERICA)
-        rfid.set_read_power(500)  # 5.00 dBm
-        rfid.set_tag_protocol()   # GEN2
+        rfid.set_region(region_constant)
+        print(f"Region set to {region.upper()}")
+        rfid.set_read_power(
+            read_power * 100
+        )  # Convert dBm to centibels (e.g., 27 dBm -> 2700)
+        print(f"Read power set to {read_power} dBm")
+        rfid.set_tag_protocol()  # GEN2
         rfid.set_antenna_port()
 
         # Get version info
@@ -69,7 +107,7 @@ def main():
                     epc_bytes = rfid.get_tag_epc_bytes()
 
                     # Extract EPC data
-                    epc = bytes(rfid.msg[31:31+epc_bytes])
+                    epc = bytes(rfid.msg[31 : 31 + epc_bytes])
 
                     print(f"Tag Found!")
                     print(f"  RSSI: {rssi} dBm")
@@ -103,4 +141,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    app()
